@@ -73,18 +73,8 @@ enum pm_state {
 #define NON_VERIFIED_PPS_FCC_MAX		3000
 #define MAX_THERMAL_LEVEL			13
 /* jeita related */
-#ifdef CONFIG_K6_CHARGE
-#define JEITA_WARM_THR			480
-#define JEITA_COOL_THR			100
-#define JEITA_BYPASS_WARM_THR		480
-#define JEITA_BYPASS_COOL_THR		100
-#else
-#define JEITA_WARM_THR			480
-#define JEITA_COOL_THR			100
-#define JEITA_BYPASS_WARM_THR		480
-#define JEITA_BYPASS_COOL_THR		100
-#endif
-
+#define JEITA_WARM_THR			450
+#define JEITA_COOL_NOT_ALLOW_CP_THR			100
 #define PDO_MAX_NUM			7
 /*
  * add hysteresis for warm threshold to avoid flash
@@ -103,25 +93,8 @@ enum pm_state {
 #define TAPER_VOL_HYS			80
 #define TAPER_WITH_IBUS_HYS			60
 #define TAPER_IBUS_THR			450
-
-#ifdef CONFIG_K6_CHARGE
 #define BQ_TAPER_HYS_MV			10
-#else
-#define BQ_TAPER_HYS_MV			30
-#endif
-
 #define BQ_TAPER_DECREASE_STEP_MA			200
-
-/* SC8551 bypass mode related */
-#define MAX_BYPASS_CURRENT_MA			3000
-#define BYPASS_VBAT_ENTER_THRES			3600	// avoid triger vin_uvlo
-#define BYPASS_FCC_ENTER_THRES			3000
-#define BYPASS_FCC_EXIT_THRES			3200
-#define BYPASS_THERMAL_ENTER_LEVEL		9
-#define BYPASS_THERMAL_EXIT_LEVEL		14
-
-#define VALID_VBUS_THRESHOLD			4500
-
 struct sw_device {
 	bool charge_enabled;
 	bool charge_limited;
@@ -179,11 +152,6 @@ struct cp_device {
 	int  bat_temp;
 	int  bus_temp;
 	int  die_temp;
-
-	int bus_error_status;
-
-	int  sc8551_charge_mode;
-	int  sc8551_bypass_charge_enable;
 };
 
 #define PM_STATE_LOG_MAX    32
@@ -237,12 +205,11 @@ struct usbpd_pm {
 	int			bus_volt_max;
 	int			bus_curr_max;
 	int			bus_curr_compensate;
-	bool			cp_sec_enable;
-	bool			disable_taper_fcc;
-
+	bool		cp_sec_enable;
 	/* jeita or thermal related */
 	bool			jeita_triggered;
 	bool			is_temp_out_fc2_range;
+
 };
 
 struct pdpm_config {
