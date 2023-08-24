@@ -14,7 +14,7 @@
 
 qcom,4890802_xiaomi_K6_NVT_5020mAH_PM7150 {
 	/*K6_nvt_5020mAH_PM7150_averaged_MasterSlave_Sep20th2020 */
-   	qcom,max-voltage-uv = <4450000>;
+	qcom,max-voltage-uv = <4450000>;
 	qcom,ffc-max-voltage-uv = <4470000>;
 	qcom,fg-cc-cv-threshold-uv = <4440000>;
 	qcom,fastchg-current-ma = <6000>;

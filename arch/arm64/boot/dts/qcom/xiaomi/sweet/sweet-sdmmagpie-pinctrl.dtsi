@@ -51,7 +51,7 @@
 		bq2597x_int_default: bq2597x_int_default {
 			/* active state */
 			mux {
-				/* GPIO 48 is used for bq25970 master ic interrupt usage */
+				/* GPIO 55 is used for bq25970 master ic interrupt usage */
 				pins = "gpio55";
 				function = "gpio";
 			};
